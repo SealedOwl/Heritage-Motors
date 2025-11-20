@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
@@ -9,29 +10,37 @@ const Navbar = () => {
 			<div className="flex items-center justify-between px-6 py-4">
 				{/* logo  */}
 				<div className="text-gold text-2xl font-playfair tracking-wider">
-					HERITAGE <span className="block text-center">MOTORS</span>
+					<Link to={"/"}>
+						{" "}
+						HERITAGE <span className="block text-center">MOTORS</span>{" "}
+					</Link>
 				</div>
 
 				{/*desktop nav links  */}
 				<div className="hidden md:flex items-center text-gold text-xl gap-5 xl:gap-10">
-					<a href="#" className="hover:text-white transition">
+					<Link to={"/"} className="hover:text-white transition">
 						Home
-					</a>
-					<a href="#" className="hover:text-white transition">
+					</Link>
+
+					<Link to={"/inventory"} className="hover:text-white transition">
 						Inventory
-					</a>
-					<a href="#" className="hover:text-white transition">
+					</Link>
+
+					<Link to={"/collections"} className="hover:text-white transition">
 						Collections
-					</a>
-					<a href="#" className="hover:text-white transition">
+					</Link>
+
+					<Link to={"/services"} className="hover:text-white transition">
 						Services
-					</a>
-					<a href="#" className="hover:text-white transition">
+					</Link>
+
+					<Link to={"/about-us"} className="hover:text-white transition">
 						About Us
-					</a>
-					<a href="#" className="hover:text-white transition">
+					</Link>
+
+					<Link to={"/contacts"} className="hover:text-white transition">
 						Contacts
-					</a>
+					</Link>
 				</div>
 
 				{/* search  */}
