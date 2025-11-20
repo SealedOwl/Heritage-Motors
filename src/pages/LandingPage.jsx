@@ -1,4 +1,7 @@
 import React from "react";
+import { FaCar } from "react-icons/fa";
+import { MdVerifiedUser } from "react-icons/md";
+import { AiOutlineGlobal } from "react-icons/ai";
 
 function LandingPage() {
 	const carsCollections = [
@@ -20,7 +23,7 @@ function LandingPage() {
 		{
 			name: "1965 Ford Mustang GT",
 			price: "$30,000",
-			img: "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=900&q=80",
+			img: "https://cdn.dealeraccelerate.com/crownclassics/1/345/15821/1920x1440/1965-ford-mustang-gt-k-code-fastback",
 		},
 		{
 			name: "1970 Chevrolet Chevelle SS",
@@ -46,6 +49,48 @@ function LandingPage() {
 			name: "1962 Lamborghini Miura",
 			price: "$85,000",
 			img: "https://www.beverlyhillscarclub.com/galleria_images/15157/15157_p60_l.jpg",
+		},
+	];
+
+	const whyChooseUs = [
+		{
+			icon: <FaCar className="text-3xl text-gold mb-4" />,
+			title: "Investment Grade",
+			desc: "Rare classics chosen for their history and value.",
+		},
+		{
+			icon: <MdVerifiedUser className="text-3xl text-gold mb-4" />,
+			title: "100% Authenticity Verified",
+			desc: "Every car is inspected and fully certified.",
+		},
+		{
+			icon: <AiOutlineGlobal className="text-3xl text-gold mb-4" />,
+			title: "Worldwide Shipping",
+			desc: "We deliver premium vintage cars anywhere in the world.",
+		},
+	];
+
+	const testimonials = [
+		{
+			profile:
+				"https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+			name: "John D.",
+			location: "Los Angeles",
+			text: "The attention to detail is exceptional. I’m thrilled with my purchase!",
+		},
+		{
+			profile:
+				"https://plus.unsplash.com/premium_photo-1690407617686-d449aa2aad3c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+			name: "Sarah M.",
+			location: "New York",
+			text: "Amazing selection of vintage cars and excellent customer service.",
+		},
+		{
+			profile:
+				"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+			name: "James T.",
+			location: "London",
+			text: "Found the perfect classic car. Couldn’t be happier!",
 		},
 	];
 	return (
@@ -143,6 +188,66 @@ function LandingPage() {
 						</div>
 					))}
 				</div>
+			</section>
+
+			{/* why choos us section  */}
+			<section className="py-20 px-5 md:px-16">
+				<h2 className="text-3xl font-playfair text-center text-gold mb-12">
+					Why Choose Us
+				</h2>
+
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+					{whyChooseUs.map((item, index) => (
+						<div
+							key={index}
+							className="flex flex-col justify-center items-center"
+						>
+							{item.icon}
+							<h3 className="text-xl font-bold">{item.title}</h3>
+							<p className="text-gray-300 mt-2">{item.desc}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			{/* testimonials section  */}
+			<section className="py-20 px-5 md:px-16 bg-gray">
+				<h2 className="text-3xl font-playfair text-center text-gold mb-12">
+					Testimonials
+				</h2>
+
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+					{testimonials.map((item, index) => (
+						<div key={index} className="bg-gray p-6 rounded-xl">
+							<div className="flex flex-col justify-center items-center gap-3">
+								<img
+									src={item.profile}
+									alt="testimonial profile"
+									className="rounded-full object-cover object-top opacity-70 w-20 h-20"
+								/>
+								<p className="text-gold text-2xl mb-3">{item.name}</p>
+							</div>
+							<p className="text-gray-300 italic">"{item.text}"</p>
+							<p className="mt-4 text-[#E5C990] bold">{item.location}</p>
+						</div>
+					))}
+				</div>
+			</section>
+
+			{/* buy premium section  */}
+			<section className="py-20 px-5 md:px-16">
+				<h2 className="text-3xl font-playfair text-center text-gold mb-12">
+					Join Our Premium Club
+				</h2>
+
+				<p className="text-center text-xl text-gray-300 mb-12">
+					Get access to modifed cars listings, special offers & premium
+					services.
+				</p>
+
+				<button className="cursor-pointer px-6 py-3 text-lg rounded border border-gold hover:bg-gold hover:text-charcoal transition block mx-auto">
+					Buy Premium
+				</button>
 			</section>
 		</div>
 	);
