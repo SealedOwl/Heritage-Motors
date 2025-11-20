@@ -57,7 +57,7 @@ function Inventory() {
 		<>
 			<Navbar />
 
-			<div className="w-full min-h-screen bg-charcoal text-white pt-30 px-8 md:px-16 pb-8">
+			<div className="w-full min-h-screen bg-charcoal text-white pt-32 px-8 md:px-16 pb-8">
 				<h1 className="text-5xl font-playfair text-gold text-center mb-6">
 					Inventory
 				</h1>
