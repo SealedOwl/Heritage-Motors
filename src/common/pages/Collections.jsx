@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
 import { IoIosLock } from "react-icons/io";
+import Navbar from "../components/Navbar";
 
 function Collections() {
 	const [isPremiumMember, setIsPremiumMember] = useState(false);
@@ -18,13 +18,14 @@ function Collections() {
 			title: "European Classics",
 			description: "Timeless European engineering and elegance.",
 			img: "https://images.unsplash.com/photo-1489008777659-ad1fc8e07097?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+			count: 6,
 		},
 		{
 			id: 3,
 			title: "JDM Legends",
 			description: "Japanese icons that defined a generation of enthusiasts.",
 			img: "https://i.pinimg.com/736x/ef/55/85/ef55859b06c198e9baac6e3c0678412f.jpg",
-			count: 9,
+			count: 10,
 		},
 	];
 
@@ -95,7 +96,7 @@ function Collections() {
 
 				{/* premium members collections  */}
 				<h1 className="text-5xl font-playfair text-gold text-center mb-6">
-					Premium Members Exclusive Collections
+					Exclusive Premium Collections
 				</h1>
 
 				<p className="text-center text-gray-300 mb-16 text-xl">

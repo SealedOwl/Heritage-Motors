@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 	return (
 		<nav className="w-full fixed top-0 left-0 z-10 bg-charcoal/90">
 			{/* main desktop navbar */}
@@ -17,7 +19,7 @@ const Navbar = () => {
 				</div>
 
 				{/*desktop nav links  */}
-				<div className="hidden md:flex items-center text-gold text-xl gap-5 xl:gap-10">
+				<div className="hidden lg:flex items-center text-gold text-xl gap-5 xl:gap-10">
 					<Link to={"/"} className="hover:text-white transition">
 						Home
 					</Link>
@@ -43,21 +45,28 @@ const Navbar = () => {
 					</Link>
 				</div>
 
-				{/* search  */}
+				{/* search */}
 				<div className=" hidden lg:flex items-center gap-1">
 					<input
 						type="text"
 						placeholder="search..."
 						className="bg-white py-1 px-3 rounded"
 					/>
-					<button className="hidden md:flex text-gold hover:text-white transition cursor-pointer border border-gold py-1 px-2 rounded">
+					<button className="hidden lg:flex text-gold hover:text-white transition cursor-pointer border border-gold py-1 px-2 rounded">
 						Search
 					</button>
 				</div>
 
+				{/* login  */}
+				<Link to={"/login"}>
+					<button className="hidden lg:flex cursor-pointer lg:px-6 md:px-3 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition font-bold">
+						Login
+					</button>
+				</Link>
+
 				{/* mobile hamburger icon  */}
 				<button
-					className="md:hidden text-gold text-xl border border-gold px-2 py-1 rounded"
+					className="lg:hidden text-gold text-xl border border-gold px-2 py-1 rounded"
 					onClick={() => setOpenMenu((prev) => !prev)}
 				>
 					<GiHamburgerMenu />
@@ -84,54 +93,54 @@ const Navbar = () => {
 
 				{/* mobile nav links  */}
 				<div className="flex flex-col text-gold text-xl gap-5 p-5">
-					<a
-						href="/"
+					<Link
+						to={"/"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						Home
-					</a>
-					<a
-						href="/"
+					</Link>
+					<Link
+						to={"/inventory"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						Inventory
-					</a>
-					<a
-						href="/"
+					</Link>
+					<Link
+						to={"/collections"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						Collecttions
-					</a>
-					<a
-						href="/"
+					</Link>
+					<Link
+						to={"/services"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						Services
-					</a>
-					<a
-						href="/"
+					</Link>
+					<Link
+						to={"/about-us"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						About Us
-					</a>
-					<a
-						href="/"
+					</Link>
+					<Link
+						to={"/contacts"}
 						onClick={() => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
 						Contact
-					</a>
+					</Link>
 				</div>
 				{/* search  */}
 				<div className="flex flex-col p-5 gap-2">
@@ -144,6 +153,13 @@ const Navbar = () => {
 						Search
 					</button>
 				</div>
+
+				{/* login  */}
+				<Link to={"/login"}>
+					<button className="w-50 block mx-auto cursor-pointer px-2 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition">
+						Login
+					</button>
+				</Link>
 			</div>
 		</nav>
 	);
