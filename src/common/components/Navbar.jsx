@@ -115,7 +115,7 @@ const Navbar = () => {
 							setOpenMenu((prev) => !prev);
 						}}
 					>
-						Collecttions
+						Collections
 					</Link>
 					<Link
 						to={"/services"}
