@@ -257,9 +257,11 @@ function LandingPage() {
 						services.
 					</p>
 
-					<button className="cursor-pointer px-6 py-3 text-lg rounded border border-gold hover:bg-gold hover:text-charcoal transition block mx-auto">
-						Buy Premium
-					</button>
+					<Link to={isLoggedIn ? "/buy-premium" : "/login"}>
+						<button className="cursor-pointer px-6 py-3 text-lg rounded border border-gold hover:bg-gold hover:text-charcoal transition block mx-auto">
+							Buy Premium
+						</button>
+					</Link>
 				</section>
 			</div>
 		</>

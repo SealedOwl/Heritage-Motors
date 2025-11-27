@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(true);
+	const [openProfileSettings, setOpenProfileSettings] = useState(false);
 
 	return (
 		<nav className="w-full fixed top-0 left-0 z-10 bg-charcoal/90">
@@ -39,10 +40,6 @@ const Navbar = () => {
 					<Link to={"/about-us"} className="hover:text-white transition">
 						About Us
 					</Link>
-
-					<Link to={"/contacts"} className="hover:text-white transition">
-						Contacts
-					</Link>
 				</div>
 
 				{/* search */}
@@ -58,11 +55,32 @@ const Navbar = () => {
 				</div>
 
 				{/* login  */}
-				<Link to={"/login"}>
-					<button className="hidden lg:flex cursor-pointer lg:px-6 md:px-3 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition font-bold">
-						Login
-					</button>
-				</Link>
+				{isLoggedIn ? (
+					<div className="relative hidden lg:block">
+						<img
+							src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+							alt="profile image"
+							className="cursor-pointer w-10 h-10 rounded-full object-cover"
+							onClick={() => setOpenProfileSettings((prev) => !prev)}
+						/>
+
+						{openProfileSettings && (
+							<div className="absolute p-3 rounded bg-gray-800 text-white flex flex-col items-start justify-center gap-3 top-12 right-0">
+								<Link className="w-full hover:text-gold">Profile</Link>
+								<Link className="w-full whitespace-nowrap hover:text-gold">
+									Buy premium
+								</Link>
+								<Link className="w-full hover:text-gold">Logout</Link>
+							</div>
+						)}
+					</div>
+				) : (
+					<Link to={"/login"}>
+						<button className="hidden lg:flex cursor-pointer lg:px-6 md:px-3 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition font-bold">
+							Login
+						</button>
+					</Link>
+				)}
 
 				{/* mobile hamburger icon  */}
 				<button
@@ -133,14 +151,6 @@ const Navbar = () => {
 					>
 						About Us
 					</Link>
-					<Link
-						to={"/contacts"}
-						onClick={() => {
-							setOpenMenu((prev) => !prev);
-						}}
-					>
-						Contact
-					</Link>
 				</div>
 				{/* search  */}
 				<div className="flex flex-col p-5 gap-2">
@@ -155,11 +165,32 @@ const Navbar = () => {
 				</div>
 
 				{/* login  */}
-				<Link to={"/login"}>
-					<button className="w-50 block mx-auto cursor-pointer px-2 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition">
-						Login
-					</button>
-				</Link>
+				{isLoggedIn ? (
+					<div className="relative mt-4">
+						<img
+							src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+							alt="profile image"
+							className="cursor-pointer w-15 h-15 rounded-full object-cover mx-auto"
+							onClick={() => setOpenProfileSettings((prev) => !prev)}
+						/>
+
+						{openProfileSettings && (
+							<div className="absolute p-3 rounded bg-gray-900 text-white flex flex-col items-start justify-center gap-3 top-16 right-10">
+								<Link className="w-full hover:text-gold">Profile</Link>
+								<Link className="w-full whitespace-nowrap text-gold">
+									Buy premium
+								</Link>
+								<Link className="w-full hover:text-gold">Logout</Link>
+							</div>
+						)}
+					</div>
+				) : (
+					<Link to={"/login"}>
+						<button className="w-50 block mx-auto cursor-pointer px-2 py-2 border border-gold rounded text-gold hover:bg-gold hover:text-black transition">
+							Login
+						</button>
+					</Link>
+				)}
 			</div>
 		</nav>
 	);
