@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
 
 function Inventory() {
 	const [sort, setSort] = useState("");
@@ -107,11 +108,13 @@ function Inventory() {
 									{car.year} - {car.color}
 								</p>
 
-								<p className="text-xl text-gold font-bold mb-4">${car.price}</p>
+								<p className="text-xl text-gold font-bold mb-4">{car.price}</p>
 
-								<button className="cursor-pointer w-full py-2 border border-gold text-gold rounded-lg hover:bg-gold hover:text-black transition">
-									View Details
-								</button>
+								<Link to={`/inventory/${car.id}`}>
+									<button className="cursor-pointer w-full py-2 border border-gold text-gold rounded-lg hover:bg-gold hover:text-black transition">
+										View Details
+									</button>
+								</Link>
 							</div>
 						</div>
 					))}

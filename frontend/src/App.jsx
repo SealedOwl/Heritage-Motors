@@ -31,7 +31,7 @@ function App() {
 
 				{/* users  */}
 				<Route path="/user-profile" element={<UserProfile />} />
-				<Route path="/view-car/:id" element={<ViewCar />} />
+				<Route path="/inventory/:id" element={<ViewCar />} />
 				<Route path="/buy-premium" element={<BuyPremium />} />
 
 				{/* admin  */}

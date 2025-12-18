@@ -21,12 +21,7 @@ function Services() {
 			desc: "Comprehensive VIN matching, documentation validation, and heritage tracing to certify full originality and collectible value.",
 			icon: <MdVerifiedUser className="text-5xl" />,
 		},
-		// {
-		// 	id: 3,
-		// 	title: "Custom Car Sourcing",
-		// 	desc: "Looking for a rare classic? We source vintage automobiles worldwide through our trusted collector and dealer network.",
-		// 	icon: <FaCar className="text-5xl" />,
-		// },
+
 		{
 			id: 3,
 			title: "Custom Modification",
