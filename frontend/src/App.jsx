@@ -14,6 +14,7 @@ import AdminSettings from "./admin/pages/AdminSettings";
 import UserProfile from "./users/pages/UserProfile";
 import ViewCar from "./users/pages/ViewCar";
 import BuyPremium from "./users/pages/BuyPremium";
+import AdminRoute from "./routes/AdminRoute";
 
 function App() {
 	return (
@@ -35,8 +36,23 @@ function App() {
 				<Route path="/buy-premium" element={<BuyPremium />} />
 
 				{/* admin  */}
-				<Route path="/admin" element={<AdminHome />} />
-				<Route path="/admin/settings" element={<AdminSettings />} />
+				<Route
+					path="/admin-home"
+					element={
+						<AdminRoute>
+							<AdminHome />
+						</AdminRoute>
+					}
+				/>
+
+				<Route
+					path="/admin/settings"
+					element={
+						<AdminRoute>
+							<AdminSettings />
+						</AdminRoute>
+					}
+				/>
 			</Routes>
 		</>
 	);

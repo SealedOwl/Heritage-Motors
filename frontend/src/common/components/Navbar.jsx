@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import SERVER_URL from "../../services/serverURL";
 
 const Navbar = () => {
 	const [openMenu, setOpenMenu] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(true);
 	const [openProfileSettings, setOpenProfileSettings] = useState(false);
+	const { user, logout } = useContext(AuthContext);
+	const isLoggedIn = Boolean(user);
 
+	const profileImage = user?.profile
+		? `${SERVER_URL}${user.profile}`
+		: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
 	return (
 		<nav className="w-full fixed top-0 left-0 z-10 bg-gray-900/80">
 			{/* main desktop navbar */}
@@ -58,7 +65,7 @@ const Navbar = () => {
 				{isLoggedIn ? (
 					<div className="relative hidden lg:block">
 						<img
-							src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+							src={profileImage}
 							alt="profile image"
 							className="cursor-pointer w-10 h-10 rounded-full object-cover"
 							onClick={() => setOpenProfileSettings((prev) => !prev)}
@@ -66,11 +73,18 @@ const Navbar = () => {
 
 						{openProfileSettings && (
 							<div className="absolute p-3 rounded bg-gray-800 text-white flex flex-col items-start justify-center gap-3 top-12 right-0">
-								<Link className="w-full hover:text-gold">Profile</Link>
+								<Link to={"/user-profile"} className="w-full hover:text-gold">
+									Profile
+								</Link>
 								<Link className="w-full whitespace-nowrap hover:text-gold">
 									Buy premium
 								</Link>
-								<Link className="w-full hover:text-gold">Logout</Link>
+								<button
+									onClick={logout}
+									className="w-full text-left hover:text-gold cursor-pointer"
+								>
+									Logout
+								</button>
 							</div>
 						)}
 					</div>
@@ -168,7 +182,7 @@ const Navbar = () => {
 				{isLoggedIn ? (
 					<div className="relative mt-4">
 						<img
-							src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+							src={profileImage}
 							alt="profile image"
 							className="cursor-pointer w-15 h-15 rounded-full object-cover mx-auto"
 							onClick={() => setOpenProfileSettings((prev) => !prev)}
@@ -176,11 +190,18 @@ const Navbar = () => {
 
 						{openProfileSettings && (
 							<div className="absolute p-3 rounded bg-gray-900 text-white flex flex-col items-start justify-center gap-3 top-16 right-10">
-								<Link className="w-full hover:text-gold">Profile</Link>
+								<Link to={"/user-profile"} className="w-full hover:text-gold">
+									Profile
+								</Link>
 								<Link className="w-full whitespace-nowrap text-gold">
 									Buy premium
 								</Link>
-								<Link className="w-full hover:text-gold">Logout</Link>
+								<button
+									onClick={logout}
+									className="w-full text-left hover:text-gold cursor-pointer"
+								>
+									Logout
+								</button>
 							</div>
 						)}
 					</div>

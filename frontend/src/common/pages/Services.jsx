@@ -1,4 +1,5 @@
-import React from "react";
+import { useState } from "react";
+import RequestService from "../components/RequestService";
 import Navbar from "../components/Navbar";
 import { FaGears } from "react-icons/fa6";
 import { MdVerifiedUser } from "react-icons/md";
@@ -6,8 +7,14 @@ import { FaUserGear } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa";
 import { IoMdLock } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 function Services() {
+	const [openRequest, setOpenRequest] = useState(false);
+
+	const { user } = useContext(AuthContext);
+
 	const services = [
 		{
 			id: 1,
@@ -64,17 +71,28 @@ function Services() {
 							Looking for a rare classic? We source vintage automobiles
 							worldwide through our trusted collector and dealer network.
 						</p>
-						<p className="flex gap-3 items-center text-gold">
-							<IoMdLock /> Premium Service{" "}
-						</p>
+						{!user?.isPremium && (
+							<p className="flex gap-2 items-center text-gold text-sm">
+								<IoMdLock /> Premium Service
+							</p>
+						)}
 					</div>
 				</div>
-				<Link to={"*"}>
-					<button className="mx-auto block text-gold text-xl border border-gold  rounded p-2 cursor-pointer hover:text-black hover:bg-gold">
-						Request Service
-					</button>
-				</Link>
+
+				<button
+					onClick={() => {
+						if (!user) {
+							alert("Please login to request a service");
+							return;
+						}
+						setOpenRequest(true);
+					}}
+					className=" mx-auto block text-gold text-xl border border-gold rounded p-2 cursor-pointer hover:text-black hover:bg-gold"
+				>
+					Request Service
+				</button>
 			</div>
+			{openRequest && <RequestService close={() => setOpenRequest(false)} />}
 		</>
 	);
 }
