@@ -194,9 +194,9 @@ function LandingPage() {
 								/>
 								<h3 className="text-xl font-bold">{item.name}</h3>
 								<p className="text-gold font-bold">{item.price}</p>
-								<button className="cursor-pointer mt-4 w-full py-2 border border-gold text-gold rounded hover:text-black hover:bg-gold transition">
+								{/* <button className="cursor-pointer mt-4 w-full py-2 border border-gold text-gold rounded hover:text-black hover:bg-gold transition">
 									View Details
-								</button>
+								</button> */}
 							</div>
 						))}
 					</div>

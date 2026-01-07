@@ -1,25 +1,70 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUserAPI, registerUserAPI } from "../../services/auth.api";
+import { AuthContext } from "../../context/AuthContext";
 
 function Auth({ register }) {
 	const [showPassword, setShowPassword] = useState(false);
 	const [userDetails, setUserDetails] = useState({
-		userName: "",
+		username: "",
 		email: "",
 		password: "",
 	});
+
+	const navigate = useNavigate();
+	const { login } = useContext(AuthContext);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setUserDetails({ ...userDetails, [name]: value });
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(userDetails);
+
+		const { username, email, password } = userDetails;
+
+		if (!email || !password || (register && !username)) {
+			alert("Please fill all required fields");
+			return;
+		}
+
+		try {
+			let response;
+
+			if (register) {
+				response = await registerUserAPI({ username, email, password });
+			} else {
+				response = await loginUserAPI({ email, password });
+			}
+
+			if (response.status === "success") {
+				alert(response.data.message);
+
+				if (!register) {
+					localStorage.setItem("token", response.data.token);
+
+					// update context FIRST
+					login(response.data.user);
+
+					// 🔑 ROLE BASED REDIRECT (ONLY ONCE)
+					if (response.data.user.role === "admin") {
+						navigate("/admin-home", { replace: true });
+					} else {
+						navigate("/", { replace: true });
+					}
+				}
+			} else {
+				alert(response.message);
+			}
+		} catch (error) {
+			console.error(error);
+			alert("Server error");
+		}
 	};
+
 	return (
 		<>
 			<div className="w-full min-h-screen bg-charcoal flex justify-center items-center px-6 py-20">
@@ -30,13 +75,13 @@ function Auth({ register }) {
 					<form className="flex flex-col p-3" onSubmit={handleSubmit}>
 						{register && (
 							<div className="flex flex-col gap-3 mb-4">
-								<label htmlFor="userName">Username</label>
+								<label htmlFor="username">Username</label>
 								<input
 									type="text"
 									placeholder="Enter your username"
 									className="p-3 border border-gray-300 rounded"
-									name="userName"
-									value={userDetails.userName}
+									name="username"
+									value={userDetails.username}
 									onChange={handleChange}
 								/>
 							</div>
@@ -84,14 +129,12 @@ function Auth({ register }) {
 							</Link>
 						</div>
 
-						<Link to={"/"}>
-							<button
-								type="button"
-								className="w-full cursor-pointer p-3 border border-gold rounded-xl hover:bg-gold hover:text-black transition font-bold mb-6"
-							>
-								{register ? "Register" : "Login"}
-							</button>
-						</Link>
+						<button
+							type="submit"
+							className="w-full cursor-pointer p-3 border border-gold rounded-xl hover:bg-gold hover:text-black transition font-bold mb-6"
+						>
+							{register ? "Register" : "Login"}
+						</button>
 
 						{register ? (
 							<p className="cursor-pointer text-gray-400 ">

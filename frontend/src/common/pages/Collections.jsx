@@ -57,7 +57,7 @@ function Collections() {
 			<Navbar />
 			<div className="w-full min-h-screen bg-charcoal text-white pt-32 px-8 md:px-16 pb-8">
 				<h1 className="text-5xl font-playfair text-gold text-center mb-6">
-					Collections
+					Popular Collections
 				</h1>
 
 				<p className="text-center text-gray-300 mb-16 text-xl">

@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../common/components/Navbar";
+import { getCarByIdAPI } from "../../services/car.api";
+import { addFavoriteAPI } from "../../services/user.api";
 
 const ViewCar = () => {
 	const { id } = useParams();
+	const [car, setCar] = useState(null);
+	const [loading, setLoading] = useState(true);
 
-	const cars = [
-		{
-			id: "1",
-			name: "1965 Ford Mustang GT",
-			price: "$30,000",
-			img: "https://cdn.dealeraccelerate.com/crownclassics/1/345/15821/1920x1440/1965-ford-mustang-gt-k-code-fastback",
-			year: 1967,
-			color: "Red",
-			engine: "4.7L V8",
-			transmission: "Manual",
-			mileage: "72,000 km",
-			fuel: "Petrol",
-			drive: "RWD",
-			condition: "Fully Restored",
-			description:
-				"A beautifully restored 1965 Ford Mustang GT featuring its original V8 engine, classic red finish, and period-correct interior.",
-		},
-	];
+	useEffect(() => {
+		fetchCar();
+	}, [id]);
 
-	const car = cars.find((c) => c.id === id);
+	const fetchCar = async () => {
+		const response = await getCarByIdAPI(id);
+
+		if (response.status === "success") {
+			setCar(response.data);
+		}
+
+		setLoading(false);
+	};
+
+	if (loading) {
+		return (
+			<div className="bg-charcoal min-h-screen flex items-center justify-center text-gold text-xl">
+				Loading car details...
+			</div>
+		);
+	}
 
 	if (!car) {
 		return (
-			<div className="bg-charcoal min-h-screen text-white flex items-center justify-center">
-				<p className="text-xl text-gray-400">Car not found.</p>
+			<div className="bg-charcoal min-h-screen flex items-center justify-center text-gray-400 text-xl">
+				Car not found.
 			</div>
 		);
 	}
@@ -41,40 +46,64 @@ const ViewCar = () => {
 		</div>
 	);
 
+	const token = localStorage.getItem("token");
+
+	const handleAddFavorite = async () => {
+		if (!token) {
+			alert("Please login to add favorites");
+			return;
+		}
+
+		const response = await addFavoriteAPI(car._id, token);
+
+		if (response.status === "success") {
+			alert("Added to favorites ");
+		} else {
+			alert(response.message);
+		}
+	};
+
 	return (
 		<>
 			<Navbar />
 
 			<div className="bg-charcoal min-h-screen text-white pt-32 px-8 md:px-16 pb-16">
 				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+					{/* IMAGE + ACTIONS */}
 					<div>
 						<img
-							src={car.img}
-							alt={car.name}
+							src={car.images[0]}
+							alt={car.title}
 							className="w-full rounded-xl shadow-lg"
 						/>
 
 						<div className="mt-6 space-y-4">
-							<button className="cursor-pointer w-full py-3 border border-gold text-gold rounded-lg hover:bg-gold hover:text-black transition">
+							<button
+								onClick={handleAddFavorite}
+								className="w-full py-3 border border-gold text-gold rounded-lg hover:bg-gold hover:text-black transition cursor-pointer"
+							>
 								Add to Favorites
 							</button>
 
-							<button className="cursor-pointer w-full py-3 bg-gold text-black rounded-lg text-lg font-semibold hover:opacity-90 transition">
+							<button className="w-full py-3 bg-gold text-black rounded-lg text-lg font-semibold hover:opacity-80 transition cursor-pointer">
 								Request Purchase
 							</button>
 						</div>
 					</div>
 
+					{/* DETAILS */}
 					<div>
 						<h1 className="text-4xl font-playfair text-gold mb-4">
-							{car.name}
+							{car.title}
 						</h1>
 
 						<p className="text-gray-400 mb-2">
 							{car.year} • {car.color} • {car.condition}
 						</p>
 
-						<p className="text-3xl text-gold font-bold mb-6">{car.price}</p>
+						<p className="text-3xl text-gold font-bold mb-6">
+							${car.price.toLocaleString()}
+						</p>
 
 						<p className="text-gray-300 mb-8 leading-relaxed">
 							{car.description}
@@ -87,9 +116,12 @@ const ViewCar = () => {
 						<div className="grid grid-cols-2 gap-6 bg-[#111]/60 border border-[#222] p-6 rounded-xl">
 							<Spec label="Engine" value={car.engine} />
 							<Spec label="Transmission" value={car.transmission} />
-							<Spec label="Mileage" value={car.mileage} />
-							<Spec label="Fuel Type" value={car.fuel} />
-							<Spec label="Drive Type" value={car.drive} />
+							<Spec
+								label="Distance Travelled"
+								value={`${car.distanceTravelled.value} ${car.distanceTravelled.unit}`}
+							/>
+							<Spec label="Fuel Type" value={car.fuelType} />
+							<Spec label="Drive Type" value={car.driveType} />
 							<Spec label="Condition" value={car.condition} />
 						</div>
 					</div>
