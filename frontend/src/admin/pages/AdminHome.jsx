@@ -8,6 +8,7 @@ import ManageUsers from "../components/ManageUsers";
 import SalesHistory from "../components/SalesHistory";
 import AdminServiceRequests from "../components/AdminServiceRequests";
 import ManageCarListings from "../components/ManageCarListings";
+import AdminSettings from "./AdminSettings";
 
 function AdminHome() {
 	const [stats, setStats] = useState(null);
@@ -79,6 +80,9 @@ function AdminHome() {
 
 					{/* manage car listings  */}
 					{activeSection === "listings" && <ManageCarListings />}
+
+					{/* update admin profile  */}
+					{activeSection === "settings" && <AdminSettings />}
 				</main>
 			</div>
 		</>

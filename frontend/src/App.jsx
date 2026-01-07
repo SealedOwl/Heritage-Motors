@@ -44,15 +44,6 @@ function App() {
 						</AdminRoute>
 					}
 				/>
-
-				<Route
-					path="/admin/settings"
-					element={
-						<AdminRoute>
-							<AdminSettings />
-						</AdminRoute>
-					}
-				/>
 			</Routes>
 		</>
 	);

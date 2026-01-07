@@ -117,3 +117,41 @@ export const rejectCarController = async (req, res) => {
 		});
 	}
 };
+
+// admin -> update profile
+export const updateAdminProfileController = async (req, res) => {
+	try {
+		const admin = req.user;
+
+		if (admin.role !== "admin") {
+			return res.status(403).json({ message: "Access denied" });
+		}
+
+		// Update username
+		if (req.body.username) {
+			admin.username = req.body.username;
+		}
+
+		// Update profile image
+		if (req.file) {
+			admin.profile = `/imgUploads/${req.file.filename}`;
+		}
+
+		await admin.save();
+
+		res.status(200).json({
+			status: "success",
+			message: "Admin profile updated successfully",
+			data: {
+				id: admin._id,
+				username: admin.username,
+				email: admin.email,
+				profile: admin.profile,
+				role: admin.role,
+			},
+		});
+	} catch (error) {
+		console.error("Admin profile update error:", error);
+		res.status(500).json({ message: "Failed to update admin profile" });
+	}
+};

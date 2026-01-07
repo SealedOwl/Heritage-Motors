@@ -128,7 +128,13 @@ const AdminLinks = ({ setActiveSection, close }) => (
 			Sales History
 		</button>
 
-		<button className="block w-full text-left hover:text-gold transition cursor-pointer">
+		<button
+			onClick={() => {
+				setActiveSection("settings");
+				close?.();
+			}}
+			className="block text-left hover:text-gold cursor-pointer"
+		>
 			Admin Settings
 		</button>
 	</nav>

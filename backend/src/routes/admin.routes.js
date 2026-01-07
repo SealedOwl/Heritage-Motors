@@ -7,9 +7,11 @@ import {
 	getPendingCarListingsController,
 	getSalesHistoryController,
 	rejectCarController,
+	updateAdminProfileController,
 } from "../controllers/admin.controller.js";
 import authMiddleware from "../middlewares/auth.middleware.js";
 import adminMiddleware from "../middlewares/admin.middleware.js";
+import upload from "../middlewares/upload.middleware.js";
 
 const router = express.Router();
 
@@ -59,6 +61,15 @@ router.delete(
 	authMiddleware,
 	adminMiddleware,
 	rejectCarController
+);
+
+// update admin profile
+router.put(
+	"/profile",
+	authMiddleware,
+	adminMiddleware,
+	upload.single("profile"),
+	updateAdminProfileController
 );
 
 export default router;

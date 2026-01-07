@@ -79,3 +79,9 @@ export const rejectCarAPI = async (id, token) => {
 		}
 	);
 };
+
+export const updateAdminProfileAPI = async (formData, token) => {
+	return await commonAPI("put", `${SERVER_URL}/api/admin/profile`, formData, {
+		Authorization: `Bearer ${token}`,
+	});
+};
